@@ -1,1 +1,21 @@
-# ChimeraXApp
+Description:
+-----------------------
+
+This application will allow a user to submit a job on the [Texas Advanced Computing Center (TACC)](https://www.tacc.utexas.edu/) [Lonestar6 supercomputer](https://www.tacc.utexas.edu/systems/lonestar6) to visualize molecules utilizing the [University of California San Francisco (UCSF)](https://www.ucsf.edu/) [ChimeraX](https://www.cgl.ucsf.edu/chimerax/) program given an input file.
+
+Running the Application:
+-----------------------
+Instructions to run the application and a filesystem description will be entered here. To run the application, the user must submit a job using the [University of Texas Research Cyberinfrastructure (UTRC) system](https://utrc.tacc.utexas.edu/).
+
+ Citations:
+---------------------
+
+[UCSF ChimeraX: Structure visualization for researchers, educators, and developers.](https://pubmed.ncbi.nlm.nih.gov/32881101/) Pettersen EF, Goddard TD, Huang CC, Meng EC, Couch GS, Croll TI, Morris JH, Ferrin TE. Protein Sci. 2021 Jan;30(1):70-82.
+
+[UCSF ChimeraX: Meeting modern challenges in visualization and analysis.](https://pubmed.ncbi.nlm.nih.gov/28710774/) Goddard TD, Huang CC, Meng EC, Pettersen EF, Couch GS, Morris JH, Ferrin TE. Protein Sci. 2018 Jan;27(1):14-25.
+
+
+ Acknowledgements:
+---------------------
+
+Molecular graphics and analyses performed with UCSF ChimeraX, developed by the Resource for Biocomputing, Visualization, and Informatics at the University of California, San Francisco, with support from National Institutes of Health R01-GM129325 and the Office of Cyber Infrastructure and Computational Biology, National Institute of Allergy and Infectious Diseases.

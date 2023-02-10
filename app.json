@@ -1,0 +1,81 @@
+{
+  "checkpointable": false,
+  "name": "{{ app.name }}",
+  "executionSystem": "tacc.ls6.tiffhuff",
+  "executionType": "HPC",
+  "deploymentPath": "{{ username }}/apps/{{ app.name }}-{{ app.version }}",
+  "deploymentSystem": "tacc.work.tiffhuff",
+  "helpURI": "https://drugdiscovery.tacc.utexas.edu/#/faq",
+  "label": "ChimeraX App",
+  "shortDescription": "{{ app.description }}",
+  "longDescription": "Long description",
+  "modules": [
+    "load tacc-apptainer"
+  ],
+  "ontology": [],
+  "parallelism": "PARALLEL",
+  "tags": [],
+  "templatePath": "runner.sh",
+  "testPath": "tester.sh",
+  "version": "{{ app.version }}",
+  "defaultMaxRunTime": "00:30:00",
+  "inputs": [
+    {
+      "id": "receptor",
+      "value": {
+        "default": "Receptor",
+        "visible": true,
+        "required": true
+      },
+      "details": {
+        "label": "PDBQT Input File",
+        "description": "Please provide a receptor formatted in a .pdb or .pdbqt file"
+      },
+      "semantics": {}
+    }
+],
+"parameters": [
+    {
+        "id": "desktop_resolution",
+        "value": {
+            "visible": true,
+            "required": true,
+            "type": "enumeration",
+            "order": 0,
+            "enquote": false,
+            "default": "1280x800",
+            "enum_values": [
+                {
+                    "800x600": "800x600"
+                },
+                {
+                    "1280x800": "1280x800"
+                },
+                {
+                    "1920x1080": "1920x1080"
+                },
+                {
+                    "1920x1200": "1920x1200"
+                },
+                {
+                    "1600x1200": "1600x1200"
+                },
+                {
+                    "2560x1600": "2560x1600"
+                }
+            ]
+        },
+        "details": {
+            "label": "Desktop Resolution",
+            "description": "Set the desktop screen size for your visualization session.",
+            "argument": null,
+            "showArgument": false,
+            "repeatArgument": false
+        },
+        "semantics": {}
+    },
+    {
+    }
+  ],
+  "outputs": []
+}
