@@ -23,13 +23,13 @@
     {
       "id": "receptor",
       "value": {
-        "default": "Receptor",
+        "default": "",
         "visible": true,
         "required": true
       },
       "details": {
         "label": "PDBQT Input File",
-        "description": "Please provide a receptor formatted in a .pdb or .pdbqt file"
+        "description": "Please provide formatted in a .pdb or .pdbqt file"
       },
       "semantics": {}
     }

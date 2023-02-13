@@ -112,14 +112,14 @@ echo "TACC: To connect to your DCV session, please point a modern web browser to
 echo "TACC:          https://ls6.tacc.utexas.edu:$LOGIN_PORT"
 
 
-echo "TACC: Your DCV session is now running!" > $LONESTAR6/ChimeraX_dcvserver.txt
-echo "TACC: To connect to your DCV session, please point a modern web browser to:" >> $LONESTAR6/ChimeraX_dcvserver.txt
-echo "TACC:          https://ls6.tacc.utexas.edu:$LOGIN_PORT" >> $LONESTAR6/ChimeraX_dcvserver.txt
+echo "TACC: Your DCV session is now running!" > $HOME/ChimeraX_dcvserver.txt
+echo "TACC: To connect to your DCV session, please point a modern web browser to:" >> $HOME/ChimeraX_dcvserver.txt
+echo "TACC:          https://ls6.tacc.utexas.edu:$LOGIN_PORT" >> $HOME/ChimeraX_dcvserver.txt
 
 # Make a symlink to work in home dir to help with navigation
 if [ ! -L $HOME/work ];
 then
-    ln -s $LONESTAR6 $HOME/work
+    ln -s $HOME $HOME/work
 fi
 
 # silence xalt errors
@@ -132,7 +132,7 @@ sleep 1
 DISPLAY=:0 xterm -fg white -bg red3 +sb -geometry 55x2+0+0 -T 'END SESSION HERE' -e "echo 'TACC: Press <enter> in this window to end your session' && read && rm ${TAP_LOCKFILE}" &
 sleep 1
 DISPLAY=:0 xterm -ls -geometry 80x24+100+50 -e 'singularity pull chimera.sif docker://maduprey/chimerax:1.5' &
-DISPLAY=:0 xterm -ls -geometry 80x24+100+50 -e 'singularity exec chimera.sif chimerax ${receptor}' &
+DISPLAY=:0 xterm -ls -geometry 80x24+100+50 -e 'singularity exec chimera.sif chimerax open ${receptor}' &
 
 
 echo $(date) > ${TAP_LOCKFILE}
@@ -154,4 +154,4 @@ sleep 1
 find /tmp/.X11-unix -user $USER -exec rm -f '{}' \;
 
 echo "TACC: job $SLURM_JOB_ID execution finished at: `date`"
-rm $LONESTAR6/ChimeraX_dcvserver.txt
+rm $HOME/ChimeraX_dcvserver.txt
