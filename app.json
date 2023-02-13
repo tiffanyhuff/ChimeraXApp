@@ -14,7 +14,7 @@
   ],
   "ontology": [],
   "parallelism": "PARALLEL",
-  "tags": [],
+  "tags": ["DCV"],
   "templatePath": "runner.sh",
   "testPath": "tester.sh",
   "version": "{{ app.version }}",
