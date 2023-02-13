@@ -8,7 +8,7 @@
   "helpURI": "https://drugdiscovery.tacc.utexas.edu/#/faq",
   "label": "ChimeraX App",
   "shortDescription": "{{ app.description }}",
-  "longDescription": "Long description",
+  "longDescription": "Once the job is running, click on Data Files => My Data (Work) and look for the file called ChimeraX_dcvserver.txt for connection instructions.",
   "modules": [
     "load tacc-apptainer"
   ],
@@ -23,7 +23,7 @@
     {
       "id": "receptor",
       "value": {
-        "default": "",
+        "default": "agave://cloud.corral.work.tiffhuff/ls6/outputligandtest.pdbqt",
         "visible": true,
         "required": true
       },
