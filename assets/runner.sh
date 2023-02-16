@@ -117,9 +117,9 @@ echo "TACC: To connect to your DCV session, please point a modern web browser to
 echo "TACC:          https://ls6.tacc.utexas.edu:$LOGIN_PORT" >> $HOME/ChimeraX_dcvserver.txt
 
 # Make a symlink to work in home dir to help with navigation
-if [ ! -L $HOME/work ];
+if [ ! -L $STOCKYARD/archive ];
 then
-    ln -s $HOME $HOME/work
+    ln -s $STOCKYARD/archive/ $HOME/Desktop/Jobs
 fi
 
 # silence xalt errors

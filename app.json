@@ -13,7 +13,7 @@
     "load tacc-apptainer"
   ],
   "ontology": [],
-  "parallelism": "PARALLEL",
+  "parallelism": "SERIAL",
   "tags": ["DCV"],
   "templatePath": "runner.sh",
   "testPath": "tester.sh",
@@ -28,8 +28,8 @@
         "required": true
       },
       "details": {
-        "label": "PDBQT Input File",
-        "description": "Please provide formatted in a .pdb or .pdbqt file"
+        "label": "Input File",
+        "description": "Please provide an input file."
       },
       "semantics": {}
     }
