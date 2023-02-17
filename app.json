@@ -5,7 +5,7 @@
   "executionType": "HPC",
   "deploymentPath": "{{ username }}/apps/{{ app.name }}-{{ app.version }}",
   "deploymentSystem": "tacc.work.tiffhuff",
-  "helpURI": "https://drugdiscovery.tacc.utexas.edu/#/faq",
+  "helpURI": "https://www.cgl.ucsf.edu/chimerax/",
   "label": "ChimeraX App",
   "shortDescription": "{{ app.description }}",
   "longDescription": "Once the job is running, click on Data Files => My Data (Work) and look for the file called ChimeraX_dcvserver.txt for connection instructions.",
@@ -19,21 +19,7 @@
   "testPath": "tester.sh",
   "version": "{{ app.version }}",
   "defaultMaxRunTime": "00:30:00",
-  "inputs": [
-    {
-      "id": "receptor",
-      "value": {
-        "default": "agave://cloud.corral.work.tiffhuff/ls6/outputligandtest.pdbqt",
-        "visible": true,
-        "required": true
-      },
-      "details": {
-        "label": "Input File",
-        "description": "Please provide an input file."
-      },
-      "semantics": {}
-    }
-],
+  "inputs": [],
 "parameters": [
     {
         "id": "desktop_resolution",
