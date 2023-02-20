@@ -8,7 +8,7 @@
   "helpURI": "https://www.cgl.ucsf.edu/chimerax/",
   "label": "ChimeraX App",
   "shortDescription": "{{ app.description }}",
-  "longDescription": "This application will allow a user to submit a job on the TACC Lonestar6 supercomputer to visualize and analyze molecular structures utilizing the University of California San Francisco ChimeraX program. Once the job is running, click on Data Files => My Data (Work) and look for the file titled 'ChimeraX_dcvserver.txt' for connection instructions. After connecting, the ChimeraX software will begin running, and a Tapis jobs archive folder will be created on the desktop for the user's convenience.",
+  "longDescription": "This application will allow a user to submit a job on the TACC Lonestar6 supercomputer to visualize and analyze molecular structures utilizing the University of California San Francisco ChimeraX program. Once the job is running, click on Data Files => My Data (Work) and look for the file titled 'ChimeraX_dcvserver.txt' for connection instructions. After connecting, the ChimeraX software will begin running, and a Tapis jobs archive folder will be created on the desktop for the user's convenience.",                  
   "modules": [
     "load tacc-apptainer"
   ],
