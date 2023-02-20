@@ -1,7 +1,7 @@
 Description:
 -----------------------
 
-This application will allow a user to submit a job on the [Texas Advanced Computing Center (TACC)](https://www.tacc.utexas.edu/) [Lonestar6 supercomputer](https://www.tacc.utexas.edu/systems/lonestar6) to visualize molecules utilizing the [University of California San Francisco (UCSF)](https://www.ucsf.edu/) [ChimeraX](https://www.cgl.ucsf.edu/chimerax/) program.
+This application will allow a user to submit a job on the [Texas Advanced Computing Center (TACC)](https://www.tacc.utexas.edu/) [Lonestar6 supercomputer](https://www.tacc.utexas.edu/systems/lonestar6) to visualize and analyze molecular structures utilizing the [University of California San Francisco (UCSF)](https://www.ucsf.edu/) [ChimeraX](https://www.cgl.ucsf.edu/chimerax/) program.
 
 Running the Application:
 -----------------------
