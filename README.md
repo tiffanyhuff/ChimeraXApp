@@ -1,11 +1,11 @@
 Description:
 -----------------------
 
-This application will allow a user to submit a job on the [Texas Advanced Computing Center (TACC)](https://www.tacc.utexas.edu/) [Lonestar6 supercomputer](https://www.tacc.utexas.edu/systems/lonestar6) to visualize molecules utilizing the [University of California San Francisco (UCSF)](https://www.ucsf.edu/) [ChimeraX](https://www.cgl.ucsf.edu/chimerax/) program given an input file.
+This application will allow a user to submit a job on the [Texas Advanced Computing Center (TACC)](https://www.tacc.utexas.edu/) [Lonestar6 supercomputer](https://www.tacc.utexas.edu/systems/lonestar6) to visualize molecules utilizing the [University of California San Francisco (UCSF)](https://www.ucsf.edu/) [ChimeraX](https://www.cgl.ucsf.edu/chimerax/) program.
 
 Running the Application:
 -----------------------
-Instructions to run the application and a filesystem description will be entered here. To run the application, the user must submit a job using the [University of Texas Research Cyberinfrastructure (UTRC) system](https://utrc.tacc.utexas.edu/).
+To run the application, the user must submit a job using the [University of Texas Research Cyberinfrastructure (UTRC) system](https://utrc.tacc.utexas.edu/). A virtual DCV session will be initialized for the user, and a document titled 'ChimeraX_dcvserver.txt' will be created in the user's work folder with connection instructions. Once connected, the ChimeraX software will begin running, and a Tapis jobs archive folder will be created on the desktop for the user's convenience.
 
  Citations:
 ---------------------

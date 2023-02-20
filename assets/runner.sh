@@ -117,7 +117,7 @@ echo "TACC: To connect to your DCV session, please point a modern web browser to
 echo "TACC:          https://ls6.tacc.utexas.edu:$LOGIN_PORT" >> $STOCKYARD/ChimeraX_dcvserver.txt
 
 # Make a symlink to work in home dir to help with navigation
-if [ ! -L $STOCKYARD/archive ];
+if [ ! -L $HOME/Desktop/Jobs ];
 then
     ln -s $STOCKYARD/archive/ $HOME/Desktop/Jobs
 fi
@@ -131,6 +131,12 @@ TAP_LOCKFILE=${HOME}/.tap/${SLURM_JOB_ID}.lock
 sleep 1
 DISPLAY=:0 xterm -fg white -bg red3 +sb -geometry 55x2+0+0 -T 'END SESSION HERE' -e "echo 'TACC: Press <enter> in this window to end your session' && read && rm ${TAP_LOCKFILE}" &
 sleep 1
+
+
+#DISPLAY=:0 xterm -ls -geometry 80x24+100+50 -e 'singularity pull chimera.sif docker://maduprey/chimerax:1.5' &
+#DISPLAY=:0 xterm -ls -geometry 80x24+100+50 -e 'singularity exec chimera.sif chimerax open' &
+
+#DISPLAY=:0 xterm -ls -geometry 80x24+100+50 -e 'singularity pull docker://maduprey/chimerax:1.5 chimerax' &
 DISPLAY=:0 xterm -ls -geometry 80x24+100+50 -e 'singularity exec docker://maduprey/chimerax:1.5 chimerax' &
 
 
