@@ -20,6 +20,12 @@ utc_date() {
 
 container_exec() {
 
+   # [TODO] Check for existence of docker or singularity executable
+    # [TODO] Enable honoring a DEBUG global
+    # [TODO] Figure out how to accept more optional arguments (env-file, etc)
+    # [TODO] Better error handling and reporting
+    # [TODO] Handle "urllib2.URLError: <urlopen error [Errno -3] Temporary failure in name resolution>"
+
     local CONTAINER_IMAGE=$1
     shift
     local COMMAND=$1
