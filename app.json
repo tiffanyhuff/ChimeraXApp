@@ -53,7 +53,7 @@
         },
         "details": {
             "label": "Desktop Resolution",
-            "description": "Set the desktop screen size for your visualization session.",
+            "description": "Please select the desktop screen size for your visualization session.",
             "argument": null,
             "showArgument": false,
             "repeatArgument": false
