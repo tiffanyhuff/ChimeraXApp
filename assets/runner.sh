@@ -1,6 +1,12 @@
 
 echo "TACC: job $SLURM_JOB_ID execution at: `date`"
 
+# program and command line arguments run within xterm -e command
+XTERM_CMD="${_XTERM_CMD}"
+# Webhook callback url for job ready notification.
+# Notifications are sent to INTERACTIVE_WEBHOOK_URL i.e. https://3dem.org/webhooks/interactive/
+INTERACTIVE_WEBHOOK_URL="${_webhook_base_url}/interactive"
+
 TAP_FUNCTIONS="/share/doc/slurm/tap_functions"
 if [ -f ${TAP_FUNCTIONS} ]; then
     . ${TAP_FUNCTIONS}
@@ -16,7 +22,12 @@ fi
 
 # our node name
 NODE_HOSTNAME=`hostname -s`
-echo "TACC: running on node $NODE_HOSTNAME"
+
+# HPC system target. Used as DCV host
+HPC_HOST=`hostname -d`
+
+echo "TACC: running on node $NODE_HOSTNAME on $HPC_HOST"
+
 
 #CONDA=$(which conda 2> /dev/null)
 #if [ ! -z "${CONDA}" ]; then
@@ -35,6 +46,8 @@ echo "TACC: running on node $NODE_HOSTNAME"
 #fi
 
 # confirm DCV server is alive
+SERVER_TYPE="DCV"
+
 DCV_SERVER_UP=`systemctl is-active dcvserver`
 if [ $DCV_SERVER_UP != "active" ]; then
     echo "TACC:"
@@ -78,9 +91,9 @@ if [ -f /tmp/.X11-unix/X0 ]; then
 fi
 
 # create DCV session
-DCV_HANDLE="$USER-session"
-dcv create-session --init=$XSTARTUP $DCV_HANDLE
-if ! `dcv list-sessions | grep -q $USER`; then
+DCV_HANDLE="${AGAVE_JOB_ID}-session"
+dcv create-session --owner ${AGAVE_JOB_OWNER} --init=$XSTARTUP $DCV_HANDLE
+if ! `dcv list-sessions | grep -q ${AGAVE_JOB_ID}`; then
     echo "TACC:"
     echo "TACC: ERROR - could not find a DCV session for $USER"
     echo "TACC: ERROR - This could be because all DCV licenses are in use."
@@ -116,7 +129,61 @@ echo "TACC: Your DCV session is now running!" > $STOCKYARD/ChimeraX_dcvserver.tx
 echo "TACC: To connect to your DCV session, please point a modern web browser to:" >> $STOCKYARD/ChimeraX_dcvserver.txt
 echo "TACC:          https://ls6.tacc.utexas.edu:$LOGIN_PORT" >> $STOCKYARD/ChimeraX_dcvserver.txt
 
-# Make a symlink to work in home dir to help with navigation
+
+
+#Testing Webhooks
+
+#################
+
+echo "TACC:          https://$HPC_HOST:$LOGIN_PORT"
+
+if [ "x${SERVER_TYPE}" == "xDCV" ]; then
+  curl -k --data "event_type=WEB&address=https://$HPC_HOST:$LOGIN_PORT&owner=${AGAVE_JOB_OWNER}&job_uuid=${AGAVE_JOB_ID}" $INTERACTIVE_WEBHOOK_URL &
+elif [ "x${SERVER_TYPE}" == "xVNC" ]; then
+
+  TAP_CERTFILE=${HOME}/.tap/.${SLURM_JOB_ID}
+  # bail if we cannot create a secure session
+  if [ ! -f ${TAP_CERTFILE} ]; then
+    echo "TACC: ERROR - could not find TLS cert for secure session"
+    echo "TACC: job ${SLURM_JOB_ID} execution finished at: $(date)"
+    exit 1
+  fi
+
+  # fire up websockify to turn the vnc session connection into a websocket connection
+  WEBSOCKIFY_CMD="/home1/00832/envision/websockify/run"
+  WEBSOCKIFY_PORT=5902
+  WEBSOCKIFY_ARGS="--cert=$(cat ${TAP_CERTFILE}) --ssl-only --ssl-version=tlsv1_2 -D ${WEBSOCKIFY_PORT} localhost:${VNC_PORT}"
+  ${WEBSOCKIFY_CMD} ${WEBSOCKIFY_ARGS} # websockify will daemonize
+
+  # notifications sent to INTERACTIVE_WEBHOOK_URL
+  curl -k --data "event_type=VNC&host=$HPC_HOST&port=$LOGIN_PORT&password=${AGAVE_JOB_ID}&owner=${AGAVE_JOB_OWNER}" $INTERACTIVE_WEBHOOK_URL &
+else
+  # we should never get this message since we just checked this at LOCAL_PORT
+  echo "TACC: "
+  echo "TACC: ERROR - unknown server type '${SERVER_TYPE}'"
+  echo "TACC: Please submit a consulting ticket at the TACC user portal"
+  echo "TACC: https://portal.tacc.utexas.edu/tacc-consulting/-/consult/tickets/create"
+  echo "TACC:"
+  echo "TACC: job $SLURM_JOB_ID execution finished at: `date`"
+  exit 1
+fi
+
+if [ -d "$workingDirectory" ]; then
+  cd ${workingDirectory}
+fi
+
+
+
+
+
+
+
+
+
+
+##################
+
+# Make a desktop folder with jobs archive
 if [ ! -L $HOME/Desktop/Jobs ];
 then
     ln -s $STOCKYARD/archive/ $HOME/Desktop/Jobs
