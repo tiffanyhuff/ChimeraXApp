@@ -7,6 +7,15 @@ XTERM_CMD="${_XTERM_CMD}"
 # Notifications are sent to INTERACTIVE_WEBHOOK_URL i.e. https://3dem.org/webhooks/interactive/
 INTERACTIVE_WEBHOOK_URL="${_webhook_base_url}/interactive"
 
+
+# our node name
+NODE_HOSTNAME=`hostname -s`
+
+# HPC system target. Used as DCV host
+HPC_HOST=`hostname -d`
+
+echo "TACC: running on node $NODE_HOSTNAME on $HPC_HOST"
+
 TAP_FUNCTIONS="/share/doc/slurm/tap_functions"
 if [ -f ${TAP_FUNCTIONS} ]; then
     . ${TAP_FUNCTIONS}
@@ -19,15 +28,6 @@ else
     echo "TACC: job $SLURM_JOB_ID execution finished at: `date`"
     exit 1
 fi
-
-# our node name
-NODE_HOSTNAME=`hostname -s`
-
-# HPC system target. Used as DCV host
-HPC_HOST=`hostname -d`
-
-echo "TACC: running on node $NODE_HOSTNAME on $HPC_HOST"
-
 
 #CONDA=$(which conda 2> /dev/null)
 #if [ ! -z "${CONDA}" ]; then
@@ -108,10 +108,13 @@ fi
 
 
 LOCAL_VNC_PORT=8443  # default DCV port
-echo "TACC: local (compute node) DCV port is $LOCAL_VNC_PORT"
+echo "TACC: local (compute node) ${SERVER_TYPE} port is $LOCAL_VNC_PORT"
 
 LOGIN_PORT=$(tap_get_port)
 echo "TACC: got login node DCV port $LOGIN_PORT"
+
+# Wait a few seconds for good measure for the job status to update
+sleep 3;
 
 # create reverse tunnel port to login nodes.  Make one tunnel for each login so the user can just
 # connect to ls6.tacc
@@ -139,24 +142,6 @@ echo "TACC:          https://$HPC_HOST:$LOGIN_PORT"
 
 if [ "x${SERVER_TYPE}" == "xDCV" ]; then
   curl -k --data "event_type=WEB&address=https://$HPC_HOST:$LOGIN_PORT&owner=${AGAVE_JOB_OWNER}&job_uuid=${AGAVE_JOB_ID}" $INTERACTIVE_WEBHOOK_URL &
-elif [ "x${SERVER_TYPE}" == "xVNC" ]; then
-
-  TAP_CERTFILE=${HOME}/.tap/.${SLURM_JOB_ID}
-  # bail if we cannot create a secure session
-  if [ ! -f ${TAP_CERTFILE} ]; then
-    echo "TACC: ERROR - could not find TLS cert for secure session"
-    echo "TACC: job ${SLURM_JOB_ID} execution finished at: $(date)"
-    exit 1
-  fi
-
-  # fire up websockify to turn the vnc session connection into a websocket connection
-  WEBSOCKIFY_CMD="/home1/00832/envision/websockify/run"
-  WEBSOCKIFY_PORT=5902
-  WEBSOCKIFY_ARGS="--cert=$(cat ${TAP_CERTFILE}) --ssl-only --ssl-version=tlsv1_2 -D ${WEBSOCKIFY_PORT} localhost:${VNC_PORT}"
-  ${WEBSOCKIFY_CMD} ${WEBSOCKIFY_ARGS} # websockify will daemonize
-
-  # notifications sent to INTERACTIVE_WEBHOOK_URL
-  curl -k --data "event_type=VNC&host=$HPC_HOST&port=$LOGIN_PORT&password=${AGAVE_JOB_ID}&owner=${AGAVE_JOB_OWNER}" $INTERACTIVE_WEBHOOK_URL &
 else
   # we should never get this message since we just checked this at LOCAL_PORT
   echo "TACC: "
@@ -214,7 +199,7 @@ dcv close-session $DCV_HANDLE
 
 echo "TACC: release port returned $(tap_release_port ${LOGIN_PORT} 2> /dev/null)"
 
-# wait a brief moment so vncserver can clean up after itself
+# wait a brief moment so dcvserver can clean up after itself
 sleep 1
 
 # remove X11 sockets so DCV will find :0 next time
