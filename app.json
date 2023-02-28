@@ -59,7 +59,33 @@
             "repeatArgument": false
         },
         "semantics": {}
-    }
+    },
+    {
+      "id": "_webhook_base_url",
+      "semantics": {
+          "minCardinality": 1,
+          "ontology": [
+              "xs:string"
+          ],
+          "maxCardinality": 1
+      },
+      "value": {
+          "required": true,
+          "enquote": false,
+          "default": null,
+          "visible": true,
+          "validator": null,
+          "type": "string",
+          "order": 1
+      },
+      "details": {
+          "argument": null,
+          "repeatArgument": false,
+          "description": null,
+          "showArgument": false,
+          "label": "Base portal webhook url."
+      }
+  }
   ],
   "outputs": []
 }

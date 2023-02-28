@@ -157,16 +157,16 @@ if [ -d "$workingDirectory" ]; then
   cd ${workingDirectory}
 fi
 
-
-
-
-
-
-
-
-
-
 ##################
+
+
+
+
+
+
+
+
+
 
 # Make a desktop folder with jobs archive
 if [ ! -L $HOME/Desktop/Jobs ];
