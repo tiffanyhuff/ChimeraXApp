@@ -116,13 +116,7 @@ echo "TACC: Your DCV session is now running!" > $STOCKYARD/ChimeraX_dcvserver.tx
 echo "TACC: To connect to your DCV session, please point a modern web browser to:" >> $STOCKYARD/ChimeraX_dcvserver.txt
 echo "TACC:          https://ls6.tacc.utexas.edu:$LOGIN_PORT" >> $STOCKYARD/ChimeraX_dcvserver.txt
 
-
-
-#Testing Webhooks
-
-#################
-
-echo "TACC:          https://$HPC_HOST:$LOGIN_PORT"
+#Intiating webhooks
 
 if [ "x${SERVER_TYPE}" == "xDCV" ]; then
   curl -k --data "event_type=WEB&address=https://$HPC_HOST:$LOGIN_PORT&owner=${AGAVE_JOB_OWNER}&job_uuid=${AGAVE_JOB_ID}" $INTERACTIVE_WEBHOOK_URL &
@@ -141,17 +135,6 @@ fi
 if [ -d "$workingDirectory" ]; then
   cd ${workingDirectory}
 fi
-
-##################
-
-
-
-
-
-
-
-
-
 
 # Make a desktop folder with jobs archive
 if [ ! -L $HOME/Desktop/Jobs ];
