@@ -5,7 +5,7 @@ This application will allow a user to submit a job on the [Texas Advanced Comput
 
 Running the Application:
 -----------------------
-To run the application, the user must submit a job using the [University of Texas Research Cyberinfrastructure (UTRC) system](https://utrc.tacc.utexas.edu/). A virtual DCV session will be initialized for the user, and a notification will appear with a link to this session. A document titled 'ChimeraX_dcvserver.txt' will also be created in the user's work folder with connection instructions. Once connected, the ChimeraX software will begin running, and a Tapis jobs archive folder will be created on the desktop for the user's convenience.
+To run the application, the user must submit a job using the [University of Texas Research Cyberinfrastructure (UTRC) system](https://utrc.tacc.utexas.edu/). Once running, a virtual DCV session will be initialized for the user, and a button on the History/Jobs page will appear allowing the user to open the session. Additionally, a document titled 'ChimeraX_dcvserver.txt' will be created in the user's work folder with connection instructions. Once connected, the ChimeraX software will begin running, and a Tapis jobs archive folder will be created on the desktop for the user's convenience.
 
  Citations:
 ---------------------

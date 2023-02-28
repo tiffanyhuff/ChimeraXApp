@@ -5,7 +5,7 @@ echo "TACC: job $SLURM_JOB_ID execution at: `date`"
 XTERM_CMD="${_XTERM_CMD}"
 # Webhook callback url for job ready notification.
 # Notifications are sent to INTERACTIVE_WEBHOOK_URL i.e. https://3dem.org/webhooks/interactive/
-INTERACTIVE_WEBHOOK_URL="${_webhook_base_url}/interactive"
+INTERACTIVE_WEBHOOK_URL="${_webhook_base_url}interactive/"
 
 
 # our node name
@@ -28,22 +28,6 @@ else
     echo "TACC: job $SLURM_JOB_ID execution finished at: `date`"
     exit 1
 fi
-
-#CONDA=$(which conda 2> /dev/null)
-#if [ ! -z "${CONDA}" ]; then
-#    CONDA_ENV=$(conda info | grep active | cut -d ":" -f 2)
-#    if [[ ! "${CONDA_ENV}" =~ "None" ]]; then
-#        echo "TACC:"
-#        echo "TACC: ERROR - active conda installation detected, which will break DCV"
-#        echo "TACC: ERROR - deactivate conda with 'conda deactivate'"
-#        echo "TACC: ERROR - then resubmit this job script"
-#        echo "TACC: ERROR - Questions? Please submit a consulting ticket"
-#        echo "TACC: ERROR - https://portal.tacc.utexas.edu/tacc-consulting/-/consult/tickets/create"
-#        echo "TACC:"
-#        echo "TACC: job ${SLURM_JOB_ID} execution finished at: $(date)"
-#        exit 1
-#    fi
-#fi
 
 # confirm DCV server is alive
 SERVER_TYPE="DCV"
@@ -142,6 +126,7 @@ echo "TACC:          https://$HPC_HOST:$LOGIN_PORT"
 
 if [ "x${SERVER_TYPE}" == "xDCV" ]; then
   curl -k --data "event_type=WEB&address=https://$HPC_HOST:$LOGIN_PORT&owner=${AGAVE_JOB_OWNER}&job_uuid=${AGAVE_JOB_ID}" $INTERACTIVE_WEBHOOK_URL &
+  echo "event_type=WEB&address=https://$HPC_HOST:$LOGIN_PORT&owner=${AGAVE_JOB_OWNER}&job_uuid=${AGAVE_JOB_ID}" $INTERACTIVE_WEBHOOK_URL
 else
   # we should never get this message since we just checked this at LOCAL_PORT
   echo "TACC: "
